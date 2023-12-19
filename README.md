@@ -2,9 +2,9 @@
 # Node Js Samples
 
 ## Install
-- npm i   or   npm i --force
+- npm i  ......  or  ......  npm i --force
 - cd sample?
-- node server.js      or        nodemon server.js
+- node server.js   ......   or   ......     nodemon server.js
 
 ## Libs
 - node js
