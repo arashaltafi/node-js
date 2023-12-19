@@ -3,10 +3,10 @@
 
 ## Install
 - npm i
-- or npm i --force
+- <b>or</b> npm i --force
 - cd sample?
 - node server.js
-- or nodemon server.js
+- <b>or</b> nodemon server.js
 
 ## Libs
 - node js
