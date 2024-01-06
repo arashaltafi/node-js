@@ -21,6 +21,16 @@ fs.rmdir('./sampleFile', (err) => {
 });
 
 
+fs.unlink('./sampleDelete.json', (err) => {
+    console.log('*******************')
+    if (err) {
+        console.log('error unlink', err);
+        return;
+    }
+    console.log('unlink Successfully');
+})
+
+
 fs.readdir('./', (err, files) => {
     console.log('*******************')
     if (err) {
