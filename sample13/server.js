@@ -1,4 +1,6 @@
 const express = require('express');
+const helmet = require('helmet');
+const morgan = require('morgan');
 const path = require('path');
 const app = express();
 const port = 8080;
@@ -8,6 +10,8 @@ const bodyParser = require('body-parser');
 //middleware body parser
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(helmet())
+app.use(morgan())
 
 //middleware custom
 app.use(logger)
