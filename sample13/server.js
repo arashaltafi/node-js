@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const startupDebug = require('debug')('startup');
 const path = require('path');
 const app = express();
 const port = 8080;
@@ -20,6 +21,7 @@ app.use(logger)
 
 app.post('/login', (req, res) => {
     res.send(req.body);
+    startupDebug('hello debug !!!')
 })
 
 app.get('/', (req, res) => {
