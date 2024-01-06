@@ -11,7 +11,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(helmet())
-app.use(morgan())
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'))
+}
 
 //middleware custom
 app.use(logger)
