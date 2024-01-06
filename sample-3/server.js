@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 fs.readdir('./', (err, files) => {
     console.log('*******************')
@@ -40,8 +41,8 @@ fs.appendFile('./sampleAppend.json', '{ "age": 26 }', (err) => {
 });
 
 
-
-const sampleJson = JSON.parse(fs.readFileSync('./sample.json').toString());
+const pathName = path.join(__dirname, 'sample.json');
+const sampleJson = JSON.parse(fs.readFileSync(pathName).toString());
 sampleJson.name = 'Sample Updated';
 sampleJson.version = '0.0.2';
-fs.writeFileSync('./sample.json', JSON.stringify(sampleJson, null, 2));
+fs.writeFileSync(pathName, JSON.stringify(sampleJson, null, 2));
