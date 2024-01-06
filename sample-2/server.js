@@ -16,7 +16,9 @@ fs.readdir('./', (err, files) => {
         return;
     }
     console.log('readdir', files);
-})
+});
+
+console.log('*******************')
 
 fs.readFile('./sample.json', (err, data) => {
     if (err) {
@@ -24,4 +26,31 @@ fs.readFile('./sample.json', (err, data) => {
         return;
     }
     console.log('readFile', data.toString());
-})
+});
+
+console.log('*******************')
+
+fs.writeFile('./sampleWrite.json', '{ "name": "Arash" }', (err) => {
+    if (err) {
+        console.log('error writeFile', err);
+        return;
+    }
+    console.log('writeFile Successfully');
+});
+
+console.log('*******************')
+
+fs.appendFile('./sampleAppend.json', '{ "age": 26 }', (err) => {
+    if (err) {
+        console.log('error appendFile', err);
+        return;
+    }
+    console.log('appendFile Successfully');
+});
+
+
+console.log('*******************')
+
+const sampleJson = JSON.parse(fs.readFileSync('./sample.json').toString());
+sampleJson.name = 'Arash Updated';
+sampleJson.version = '0.0.2';
