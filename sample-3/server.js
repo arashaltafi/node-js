@@ -20,7 +20,7 @@ fs.readFile('./sample.json', (err, data) => {
 });
 
 
-fs.writeFile('./sampleWrite.json', '{ "name": "Arash" }', (err) => {
+fs.writeFile('./sampleWrite.json', '{ "name": "Arash Write" }', (err) => {
     console.log('*******************')
     if (err) {
         console.log('error writeFile', err);
