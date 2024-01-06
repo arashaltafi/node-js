@@ -1,6 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
+fs.mkdir('./sampleFile', (err) => {
+    console.log('*******************')
+    if (err) {
+        console.log('error mkdir', err);
+        return;
+    }
+    console.log('mkdir Successfully');
+});
+
+
+fs.rmdir('./sampleFile', (err) => {
+    console.log('*******************')
+    if (err) {
+        console.log('error rmdir', err);
+        return;
+    }
+    console.log('rmdir Successfully');
+});
+
+
 fs.readdir('./', (err, files) => {
     console.log('*******************')
     if (err) {
