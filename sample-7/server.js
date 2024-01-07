@@ -3,6 +3,12 @@ const path = require('path');
 
 const app = express();
 
+app.use((req, res, next) => {
+    console.log(`request with method : ${req.method}`);
+    console.log(`request with url : ${req.url}`);
+    next()
+});
+
 app.get('/', (req, res) => {
     res.status(200)
     res.sendFile(path.join(__dirname, 'index.html'));
