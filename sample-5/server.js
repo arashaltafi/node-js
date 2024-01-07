@@ -33,11 +33,11 @@ const server = http.createServer((req, res) => {
 
             if (err) {
                 console.log(err);
-                res.writeHead(400, { 'Content-Type': 'text/html' });
+                res.statusCode = 400;
                 return res.end();
             }
 
-            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.statusCode = 200;
             return res.end(data);
         })
     }
