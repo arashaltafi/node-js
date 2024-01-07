@@ -14,6 +14,14 @@ const server = http.createServer((req, res) => {
         case '/about':
             pathSwitch = '/about.html';
             break;
+        case '/about.html':
+            pathSwitch = '/about.html';
+            break;
+        case '/about-me':
+            res.statusCode = 301;
+            res.setHeader('Location', '/about');
+            res.end();
+            break;
         case '/contact':
             pathSwitch = '/contact.html';
             break;
