@@ -9,8 +9,8 @@ const url = "mongodb://root:gy1tIo4FOinBwnFDNqfTDb3K@robin.iran.liara.ir:32179/t
 // add user
 app.get('/addUser', (req, res) => {
     const user = new User({
-        name: 'arash 2',
-        email: 'arashaltafi1377@gmail.com 2',
+        name: 'arash 3',
+        email: 'arashaltafi1377@gmail.com 3',
         password: '123456'
     });
 
@@ -24,7 +24,7 @@ app.get('/addUser', (req, res) => {
 });
 
 // get all users
-app.get('/getUser', (req, res) => {
+app.get('/getUsers', (req, res) => {
     User.find({}).then((result) => {
         res.send(result);
     }).catch((error) => {
@@ -32,9 +32,31 @@ app.get('/getUser', (req, res) => {
     })
 });
 
-// delete users
-app.get('/deleteUser', (req, res) => {
+// get one user
+app.get('/getUser', (req, res) => {
+    User.find({ _id: '659a7c321205c72ba3086715' }).then((result) => {
+        res.send(result);
+    }).catch((error) => {
+        res.send(error.message);
+    })
+});
 
+// delete all users
+app.get('/deleteUsers', (req, res) => {
+    User.deleteMany({}).then((result) => {
+        res.send(result);
+    }).catch((error) => {
+        res.send(error.message);
+    })
+});
+
+//delete one user
+app.get('/deleteUser', (req, res) => {
+    User.deleteOne({ _id: '659a7c321205c72ba3086715' }).then((result) => {
+        res.send(result);
+    }).catch((error) => {
+        res.send(error.message);
+    })
 });
 
 try {
