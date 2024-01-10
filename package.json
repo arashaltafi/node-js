@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/arashaltafi/node-js#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "clientjs": "^0.2.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
