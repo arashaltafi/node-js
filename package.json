@@ -46,6 +46,7 @@
     "nodemon": "^3.0.2",
     "npmsample-arash": "^1.0.1",
     "socket.io": "^4.7.2",
+    "swagger-ui-express": "^5.0.0",
     "ws": "^8.14.2"
   },
   "devDependencies": {
