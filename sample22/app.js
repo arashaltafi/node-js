@@ -11,9 +11,15 @@ var options = {
   },
   customCss: '.swagger-ui .topbar { display: none }',
   swaggerOptions: {
-    url: 'http://petstore.swagger.io/v2/swagger.json'
+    url: 'http://localhost/swagger.json'
   }
 };
+
+app.get('/test', (req, res) => {
+  res.send({
+    'msg': 'Hello World!'
+  });
+});
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
 app.use('/', swaggerUi.serve, swaggerUi.setup(null, options));
