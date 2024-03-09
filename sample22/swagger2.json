@@ -8,12 +8,16 @@
       "description": "login / register / Check Validation Code",
       "externalDocs": {
         "description": "Find out more",
-        "url": "https://tv-back.liara.run/verify"
+        "url": "https://tv-back.liara.run/api/v1/verify"
       }
     },
     {
-      "name": "store",
-      "description": "Access to Petstore orders"
+      "name": "banner",
+      "description": "get all banner",
+  "externalDocs": {
+        "description": "Find out more",
+        "url": "https://tv-back.liara.run/api/v1/banner"
+      }
     },
     {
       "name": "pet",
@@ -114,7 +118,41 @@
           }
         }
       }
-    }
+    },
+  
+  "/banner/getAll": {
+    "get": {
+        "tags": [
+          "banner"
+        ],
+    "summary": "get all banners",
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/definitions/bannerResponse200"
+            }
+          },
+    "401": {
+      "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/definitions/bannerResponse401"
+            }	
+    },
+    "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/definitions/bannerResponse500"
+            }
+          }
+        },
+    "security": [
+          {
+            "api_key": ["123"]
+          }
+        ]
+      }
+  }
 },
   "securityDefinitions": {
     "api_key": {
@@ -270,5 +308,75 @@
      }
    }
   },
+  
+  "bannerResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+    "example": "ok"
+        },
+        "message": {
+          "type": "string",
+    "example": "عملیات موفق"
+        },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+        "type": "string",
+        "example": "1"
+        },
+        "videoId": {
+        "type": "string",
+        "example": "1"
+        },
+        "videoImage": {
+        "type": "string",
+        "example": "1"
+        },
+        "title": {
+        "type": "string",
+        "example": "1"
+        },
+        "videoUrl": {
+        "type": "string",
+        "example": "1"
+        },
+        "imageUrl": {
+        "type": "string",
+        "example": "1"
+        },
+      }
+    }
+      }  
+  },
+  "bannerResponse401": {
+  "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+    "example": "err"
+        },
+        "message": {
+          "type": "string",
+    "example": "ارسال کد کاربر الزامی می باشد"
+        }
   }
+  },
+  "bannerResponse500": {
+  "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+    "example": "err"
+        },
+        "message": {
+          "type": "string",
+    "example": "خطا در انجام عملیات"
+        }
+  }
+  }
+
+}
 }
