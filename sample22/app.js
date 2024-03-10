@@ -56,12 +56,38 @@ const jsonGenerated = {
         "description": "برای مشاهده بیشتر کلیک کنید",
         "url": "https://tv-back.liara.run/api/v1/report"
       }
+    },
+    {
+      "name": "comment",
+      "description": "send / get, comment",
+      "externalDocs": {
+        "description": "برای مشاهده بیشتر کلیک کنید",
+        "url": "https://tv-back.liara.run/api/v1/comment"
+      }
+    },
+    {
+      "name": "tv",
+      "description": "get all tvs / get all tv by state",
+      "externalDocs": {
+        "description": "برای مشاهده بیشتر کلیک کنید",
+        "url": "https://tv-back.liara.run/api/v1/tv"
+      }
+    },
+    {
+      "name": "profile",
+      "description": "edit name, avatar profile",
+      "externalDocs": {
+        "description": "برای مشاهده بیشتر کلیک کنید",
+        "url": "https://tv-back.liara.run/api/v1/profile"
+      }
     }
   ],
+
   "schemes": [
     "https",
     "http"
   ],
+
   "paths": {
     "/verify": {
       "post": {
@@ -82,7 +108,7 @@ const jsonGenerated = {
             "description": "send phone number",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/verifyBody"
+              "$ref": "#/models/verifyBody"
             }
           }
         ],
@@ -90,19 +116,19 @@ const jsonGenerated = {
           "200": {
             "description": "موفقیت آمیز",
             "schema": {
-              "$ref": "#/definitions/verifyResponse200"
+              "$ref": "#/models/verifyResponse200"
             }
           },
           "400": {
             "description": "خطای سمت کاربر",
             "schema": {
-              "$ref": "#/definitions/verifyResponse400"
+              "$ref": "#/models/verifyResponse400"
             }
           },
           "500": {
             "description": "خطای سمت سرور",
             "schema": {
-              "$ref": "#/definitions/verifyResponse500"
+              "$ref": "#/models/verifyResponse500"
             }
           }
         }
@@ -127,7 +153,7 @@ const jsonGenerated = {
             "description": "send validation number",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/checkCodeBody"
+              "$ref": "#/models/checkCodeBody"
             }
           }
         ],
@@ -135,19 +161,19 @@ const jsonGenerated = {
           "200": {
             "description": "موفقیت آمیز",
             "schema": {
-              "$ref": "#/definitions/checkCodeResponse200"
+              "$ref": "#/models/checkCodeResponse200"
             }
           },
           "400": {
             "description": "خطای سمت کاربر",
             "schema": {
-              "$ref": "#/definitions/checkCodeResponse400"
+              "$ref": "#/models/checkCodeResponse400"
             }
           },
           "500": {
             "description": "خطای سمت سرور",
             "schema": {
-              "$ref": "#/definitions/checkCodeResponse500"
+              "$ref": "#/models/checkCodeResponse500"
             }
           }
         }
@@ -164,19 +190,19 @@ const jsonGenerated = {
           "200": {
             "description": "موفقیت آمیز",
             "schema": {
-              "$ref": "#/definitions/bannerResponse200"
+              "$ref": "#/models/bannerResponse200"
             }
           },
           "401": {
             "description": "خطای سمت کاربر",
             "schema": {
-              "$ref": "#/definitions/bannerResponse401"
+              "$ref": "#/models/bannerResponse401"
             }
           },
           "500": {
             "description": "خطای سمت سرور",
             "schema": {
-              "$ref": "#/definitions/bannerResponse500"
+              "$ref": "#/models/bannerResponse500"
             }
           }
         },
@@ -207,7 +233,7 @@ const jsonGenerated = {
             "description": "send videoId, videoTitle, videoLink, videoImage in body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/reportBody"
+              "$ref": "#/models/reportBody"
             }
           }
         ],
@@ -215,19 +241,19 @@ const jsonGenerated = {
           "200": {
             "description": "موفقیت آمیز",
             "schema": {
-              "$ref": "#/definitions/reportResponse200"
+              "$ref": "#/models/reportResponse200"
             }
           },
           "400": {
             "description": "خطای سمت کاربر",
             "schema": {
-              "$ref": "#/definitions/reportResponse400"
+              "$ref": "#/models/reportResponse400"
             }
           },
           "500": {
             "description": "خطای سمت سرور",
             "schema": {
-              "$ref": "#/definitions/reportResponse500"
+              "$ref": "#/models/reportResponse500"
             }
           }
         },
@@ -238,7 +264,129 @@ const jsonGenerated = {
         ]
       }
     },
+
+
+    "/comment/send": {
+      "post": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "send comment",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "send idVideo, rating, comment in body",
+            "required": true,
+            "schema": {
+              "$ref": "#/models/sendCommentBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/sendCommentResponse200"
+            }
+          },
+          "400": {
+            "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/models/commentResponse400"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/commentResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    },
+    "/comment/getMyComments": {
+      "get": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "get all myComments",
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/myCommentResponse200"
+            }
+          },
+          "401": {
+            "description": "کد کاربر صحیح نمی باشد",
+            "schema": {
+              "$ref": "#/models/commentResponse401"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/commentResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    },
+    "/comment/getAll/1": {
+      "get": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "get all comments by id",
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/commentResponse200"
+            }
+          },
+          "400": {
+            "description": "لطفا آیدی را وارد نمایید",
+            "schema": {
+              "$ref": "#/models/commentResponse400"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/commentResponse500"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    },
   },
+
   "securityDefinitions": {
     "Authorization": {
       "type": "apiKey",
@@ -246,7 +394,8 @@ const jsonGenerated = {
       "in": "header"
     }
   },
-  "definitions": {
+
+  "models": {
     "verifyResponse200": {
       "type": "object",
       "properties": {
@@ -321,6 +470,7 @@ const jsonGenerated = {
     },
 
 
+
     "checkCodeResponse200": {
       "type": "object",
       "properties": {
@@ -387,6 +537,7 @@ const jsonGenerated = {
     },
 
 
+
     "bannerResponse200": {
       "type": "object",
       "properties": {
@@ -408,7 +559,7 @@ const jsonGenerated = {
             "records": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/bannerItem"
+                "$ref": "#/models/bannerItem"
               }
             }
           }
@@ -470,6 +621,7 @@ const jsonGenerated = {
         }
       }
     },
+
 
 
     "reportResponse200": {
@@ -536,7 +688,195 @@ const jsonGenerated = {
       }
     },
 
-    
+
+    "sendCommentResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        }
+      }
+    },
+    "myCommentResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number",
+              "example": 4
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/myCommentItem"
+              }
+            }
+          }
+        }
+      }
+    },
+    "commentResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number",
+              "example": 4
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/commentItem"
+              }
+            }
+          }
+        }
+      }
+    },
+    "commentResponse400": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "لطفا آیدی را وارد نمایید"
+        }
+      }
+    },
+    "commentResponse401": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "کد کاربر صحیح نمی باشد"
+        }
+      }
+    },
+    "commentResponse500": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "خطا در انجام عملیات"
+        }
+      }
+    },
+    "sendCommentBody": {
+      "type": "object",
+      "required": [
+        "phone"
+      ],
+      "properties": {
+        "idVideo": {
+          "type": "string",
+          "example": "2"
+        },
+        "rating": {
+          "type": "string",
+          "example": "4.5"
+        },
+        "comment": {
+          "type": "string",
+          "example": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
+        }
+      }
+    },
+    "myCommentItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "شبکه 1"
+        },
+        "state": {
+          "type": "string",
+          "example": "TV_GLOBAL"
+        },
+        "image": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/images/png/ic_tv1.png"
+        },
+        "rating": {
+          "type": "string",
+          "example": "4.5"
+        },
+        "comment": {
+          "type": "string",
+          "example": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
+        }
+      }
+    },
+    "commentItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "شبکه 1"
+        },
+        "date": {
+          "type": "string",
+          "example": "TV_GLOBAL"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/images/png/ic_tv1.png"
+        },
+        "rating": {
+          "type": "string",
+          "example": "4.5"
+        },
+        "comment": {
+          "type": "string",
+          "example": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد."
+        }
+      }
+    },
+
+
   },
   "externalDocs": {
     "description": "Find out more about Swagger",
