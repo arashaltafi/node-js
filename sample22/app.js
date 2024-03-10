@@ -363,7 +363,7 @@ const jsonGenerated = {
             }
           },
           "400": {
-            "description": "لطفا آیدی را وارد نمایید",
+            "description": "خطای سمت کاربر",
             "schema": {
               "$ref": "#/models/commentResponse400"
             }
@@ -385,6 +385,109 @@ const jsonGenerated = {
         ]
       }
     },
+
+
+
+    "/profile/sendName": {
+      "post": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "send name",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "send name in body",
+            "required": true,
+            "schema": {
+              "$ref": "#/models/profileNameBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/profileNameResponse200"
+            }
+          },
+          "400": {
+            "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/models/profileNameResponse400"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/profileNameResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    },
+    "/profile/sendAvatar": {
+      "post": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "send avatar",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "send idVideo, rating, comment in body",
+            "required": true,
+            "schema": {
+              "$ref": "#/models/sendCommentBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/sendCommentResponse200"
+            }
+          },
+          "400": {
+            "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/models/commentResponse400"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/commentResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    }
   },
 
   "securityDefinitions": {
@@ -876,6 +979,72 @@ const jsonGenerated = {
       }
     },
 
+
+
+    "profileNameResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "آرش الطافی"
+            },
+            "avatar": {
+              "type": "string",
+              "example": "https://arashaltafi.ir/arash.jpg"
+            }
+          }
+        }
+      }
+    },
+    "profileNameResponse400": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "لطفا نام خود را به صورت متن وارد نمایید"
+        }
+      }
+    },
+    "profileNameResponse500": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "خطا در انجام عملیات"
+        }
+      }
+    },
+    "profileNameBody": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "آرش الطافی"
+        }
+      }
+    },
 
   },
   "externalDocs": {
