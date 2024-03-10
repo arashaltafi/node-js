@@ -48,6 +48,14 @@ const jsonGenerated = {
         "description": "برای مشاهده بیشتر کلیک کنید",
         "url": "https://tv-back.liara.run/api/v1/banner"
       }
+    },
+    {
+      "name": "report",
+      "description": "send report",
+      "externalDocs": {
+        "description": "برای مشاهده بیشتر کلیک کنید",
+        "url": "https://tv-back.liara.run/api/v1/report"
+      }
     }
   ],
   "schemes": [
@@ -178,7 +186,58 @@ const jsonGenerated = {
           }
         ]
       }
-    }
+    },
+
+    "/report": {
+      "post": {
+        "tags": [
+          "report"
+        ],
+        "summary": "send report",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "send videoId, videoTitle, videoLink, videoImage in body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reportBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/definitions/reportResponse200"
+            }
+          },
+          "400": {
+            "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/definitions/reportResponse400"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/definitions/reportResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    },
   },
   "securityDefinitions": {
     "Authorization": {
@@ -261,6 +320,7 @@ const jsonGenerated = {
       }
     },
 
+
     "checkCodeResponse200": {
       "type": "object",
       "properties": {
@@ -326,6 +386,7 @@ const jsonGenerated = {
       }
     },
 
+
     "bannerResponse200": {
       "type": "object",
       "properties": {
@@ -380,7 +441,6 @@ const jsonGenerated = {
         }
       }
     },
-
     "bannerItem": {
       "type": "object",
       "properties": {
@@ -409,7 +469,74 @@ const jsonGenerated = {
           "example": "https://arashaltafi.ir/tvonline/banner/tv3.jpg"
         }
       }
-    }
+    },
+
+
+    "reportResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        }
+      }
+    },
+    "reportResponse400": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "لطفا لینک شبکه را به صورت متن وارد نمایید"
+        }
+      }
+    },
+    "reportResponse500": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "خطا در انجام عملیات"
+        }
+      }
+    },
+    "reportBody": {
+      "type": "object",
+      "required": [
+        "phone"
+      ],
+      "properties": {
+        "videoId": {
+          "type": "string",
+          "example": "35"
+        },
+        "videoTitle": {
+          "type": "string",
+          "example": "شبکه 3"
+        },
+        "videoLink": {
+          "type": "string",
+          "example": "https://cdn-bsht1c87.telewebion.com/tv3/live/720p/index.m3u8"
+        },
+        "videoImage": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/banner/tv3.jpg"
+        }
+      }
+    },
+
+    
   },
   "externalDocs": {
     "description": "Find out more about Swagger",
