@@ -454,10 +454,10 @@ const jsonGenerated = {
           {
             "in": "body",
             "name": "body",
-            "description": "send idVideo, rating, comment in body",
+            "description": "send avatar in body",
             "required": true,
             "schema": {
-              "$ref": "#/models/sendCommentBody"
+              "$ref": "#/models/profileAvatarBody"
             }
           }
         ],
@@ -465,19 +465,19 @@ const jsonGenerated = {
           "200": {
             "description": "موفقیت آمیز",
             "schema": {
-              "$ref": "#/models/sendCommentResponse200"
+              "$ref": "#/models/profileAvatarResponse200"
             }
           },
           "400": {
             "description": "خطای سمت کاربر",
             "schema": {
-              "$ref": "#/models/commentResponse400"
+              "$ref": "#/models/profileAvatarResponse400"
             }
           },
           "500": {
             "description": "خطای سمت سرور",
             "schema": {
-              "$ref": "#/models/commentResponse500"
+              "$ref": "#/models/profileNameResponse500"
             }
           }
         },
@@ -1042,6 +1042,60 @@ const jsonGenerated = {
         "name": {
           "type": "string",
           "example": "آرش الطافی"
+        }
+      }
+    },
+
+
+
+    "profileAvatarResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "آرش الطافی"
+            },
+            "avatar": {
+              "type": "string",
+              "example": "https://arashaltafi.ir/arash.jpg"
+            }
+          }
+        }
+      }
+    },
+    "profileAvatarResponse400": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "لطفا عکس خود را ارسال نمایید"
+        }
+      }
+    },
+    "profileAvatarBody": {
+      "type": "object",
+      "required": [
+        "image"
+      ],
+      "properties": {
+        "image": {
+          "type": "string",
+          "example": "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh"
         }
       }
     },
