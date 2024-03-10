@@ -37,7 +37,7 @@ const jsonGenerated = {
       "name": "verify",
       "description": "login / register / Check Validation Code",
       "externalDocs": {
-        "description": "Find out more",
+        "description": "برای مشاهده بیشتر کلیک کنید",
         "url": "https://tv-back.liara.run/api/v1/verify"
       }
     },
@@ -45,13 +45,9 @@ const jsonGenerated = {
       "name": "banner",
       "description": "get all banner",
       "externalDocs": {
-        "description": "Find out more",
+        "description": "برای مشاهده بیشتر کلیک کنید",
         "url": "https://tv-back.liara.run/api/v1/banner"
       }
-    },
-    {
-      "name": "pet",
-      "description": "pet description"
     }
   ],
   "schemes": [
@@ -178,26 +174,17 @@ const jsonGenerated = {
         },
         "security": [
           {
-            "api_key": ["123"]
+            "Authorization": ["123"]
           }
         ]
       }
     }
   },
   "securityDefinitions": {
-    "api_key": {
+    "Authorization": {
       "type": "apiKey",
-      "name": "api_key",
+      "name": "Authorization",
       "in": "header"
-    },
-    "petstore_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "https://petstore.swagger.io/oauth/authorize",
-      "flow": "implicit",
-      "scopes": {
-        "read:pets": "read your pets",
-        "write:pets": "modify pets in your account"
-      }
     }
   },
   "definitions": {
@@ -353,30 +340,16 @@ const jsonGenerated = {
         "data": {
           "type": "object",
           "properties": {
-            "id": {
-              "type": "string",
-              "example": "1"
+            "total": {
+              "type": "number",
+              "example": 7
             },
-            "videoId": {
-              "type": "string",
-              "example": "1"
-            },
-            "videoImage": {
-              "type": "string",
-              "example": "1"
-            },
-            "title": {
-              "type": "string",
-              "example": "1"
-            },
-            "videoUrl": {
-              "type": "string",
-              "example": "1"
-            },
-            "imageUrl": {
-              "type": "string",
-              "example": "1"
-            },
+            "records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/bannerItem"
+              }
+            }
           }
         }
       }
@@ -406,7 +379,41 @@ const jsonGenerated = {
           "example": "خطا در انجام عملیات"
         }
       }
+    },
+
+    "bannerItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "videoId": {
+          "type": "number",
+          "example": 35
+        },
+        "videoImage": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/images/png/ic_tv3.png"
+        },
+        "title": {
+          "type": "string",
+          "example": "شبکه 3"
+        },
+        "videoUrl": {
+          "type": "string",
+          "example": "https://cdn-bsht1c87.telewebion.com/tv3/live/720p/index.m3u8"
+        },
+        "imageUrl": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/banner/tv3.jpg"
+        }
+      }
     }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "https://tv-back.liara.run/api/v1/"
   }
 }
 
