@@ -487,7 +487,18 @@ const jsonGenerated = {
           }
         ]
       }
-    }
+    },
+
+
+    "/tv/search": {
+
+    },
+    "/tv/getAll": {
+
+    },
+    "/tv/getAllData": {
+
+    },
   },
 
   "securityDefinitions": {
