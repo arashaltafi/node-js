@@ -349,12 +349,25 @@ const jsonGenerated = {
         ]
       }
     },
-    "/comment/getAll/1": {
+    "/comment/getAll/{id}": {
       "get": {
         "tags": [
           "comment"
         ],
         "summary": "get all comments by id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Video Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "responses": {
           "200": {
             "description": "موفقیت آمیز",
@@ -491,7 +504,73 @@ const jsonGenerated = {
 
 
     "/tv/search": {
-
+      "get": {
+        "tags": [
+          "tv"
+        ],
+        "summary": "search to all tvs",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Set Authorization in Header",
+            "required": false,
+            "type": "string"
+          }, {
+            "name": "search",
+            "in": "query",
+            "description": "search tv title",
+            "required": true,
+            "type": "string"
+          }, {
+            "name": "page_number",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "type": "string"
+          }, {
+            "name": "page_size",
+            "in": "query",
+            "description": "page size",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/searchResponse200"
+            }
+          },
+          "400": {
+            "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/models/searchResponse400"
+            }
+          },
+          "401": {
+            "description": "کد کاربر صحیح نمی باشد",
+            "schema": {
+              "$ref": "#/models/searchResponse401"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/searchResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
     },
     "/tv/getAll": {
 
@@ -1107,6 +1186,125 @@ const jsonGenerated = {
         "image": {
           "type": "string",
           "example": "/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh"
+        }
+      }
+    },
+
+
+
+    "searchResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "number",
+              "example": 7
+            },
+            "records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/bannerItem"
+              }
+            }
+          }
+        }
+      }
+    },
+    "searchResponse400": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "لطفا مقادیر page_number و page_size را به صورت صحیح وارد نمایید"
+        }
+      }
+    },
+    "searchResponse401": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "ارسال کد کاربر الزامی می باشد"
+        }
+      }
+    },
+    "searchResponse500": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "err"
+        },
+        "message": {
+          "type": "string",
+          "example": "خطا در انجام عملیات"
+        }
+      }
+    },
+    "searchBody": {
+      "type": "object",
+      "required": [
+        "phone"
+      ],
+      "properties": {
+        "search": {
+          "type": "string",
+          "example": "رادیو"
+        },
+        "page_number": {
+          "type": "string",
+          "example": "1"
+        },
+        "page_size ": {
+          "type": "string",
+          "example": "10"
+        }
+      }
+    },
+    "tvItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 3
+        },
+        "name": {
+          "type": "string",
+          "example": "شبکه 3"
+        },
+        "description": {
+          "type": "string",
+          "example": "شبکهٔ سه، یکی از شبکه‌های تلویزیونی دولتی کشور ایران است که در مجموعهٔ صدا و سیمای ایران مدیریت می‌شود. پخش برنامه‌های شبکه با فرمت HD 1080p و کدک HEVC نیز از گیرنده‌های زمینی و ماهواره‌ای از ۹ آذر ۱۳۹۹ آغاز شد. قبل از این پخش شبکه با فرمت HD 1080i و کدک H264 از ۱۷ مرداد ۱۳۹۵ آغاز شده‌ بود."
+        },
+        "image": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/images/png/ic_tv3.png"
+        },
+        "link": {
+          "type": "string",
+          "example": "https://cdn-bsht1c87.telewebion.com/tv3/live/720p/index.m3u8"
+        },
+        "isIran": {
+          "type": "string",
+          "example": "1"
         }
       }
     },
