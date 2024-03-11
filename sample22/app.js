@@ -67,7 +67,7 @@ const jsonGenerated = {
     },
     {
       "name": "tv",
-      "description": "get all tvs / get all tv by state",
+      "description": "get all tvs / get all tv by state / search tv",
       "externalDocs": {
         "description": "برای مشاهده بیشتر کلیک کنید",
         "url": "https://tv-back.liara.run/api/v1/tv"
@@ -543,25 +543,55 @@ const jsonGenerated = {
           "200": {
             "description": "موفقیت آمیز",
             "schema": {
-              "$ref": "#/models/searchResponse200"
+              "$ref": "#/models/tvResponse200"
             }
           },
           "400": {
             "description": "خطای سمت کاربر",
             "schema": {
-              "$ref": "#/models/searchResponse400"
+              "$ref": "#/models/tvResponse400"
             }
           },
           "401": {
             "description": "کد کاربر صحیح نمی باشد",
             "schema": {
-              "$ref": "#/models/searchResponse401"
+              "$ref": "#/models/tvResponse401"
             }
           },
           "500": {
             "description": "خطای سمت سرور",
             "schema": {
-              "$ref": "#/models/searchResponse500"
+              "$ref": "#/models/tvResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
+    },
+    "/tv/getAllData": {
+      "get": {
+        "tags": [
+          "tv"
+        ],
+        "summary": "get all tvs",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/allTvResponse200"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/tvResponse500"
             }
           }
         },
@@ -573,11 +603,69 @@ const jsonGenerated = {
       }
     },
     "/tv/getAll": {
-
+      "get": {
+        "tags": [
+          "tv"
+        ],
+        "summary": "get all tv by state",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "description": "state of tvs like => TV_GLOBAL, TV_SATELLITE, ...",
+            "required": true,
+            "type": "string"
+          }, {
+            "name": "page_number",
+            "in": "query",
+            "description": "page number",
+            "required": false,
+            "type": "string"
+          }, {
+            "name": "page_size",
+            "in": "query",
+            "description": "page size",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "موفقیت آمیز",
+            "schema": {
+              "$ref": "#/models/tvResponse200"
+            }
+          },
+          "400": {
+            "description": "خطای سمت کاربر",
+            "schema": {
+              "$ref": "#/models/tvResponse400"
+            }
+          },
+          "401": {
+            "description": "کد کاربر صحیح نمی باشد",
+            "schema": {
+              "$ref": "#/models/tvResponse401"
+            }
+          },
+          "500": {
+            "description": "خطای سمت سرور",
+            "schema": {
+              "$ref": "#/models/tvResponse500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["123"]
+          }
+        ]
+      }
     },
-    "/tv/getAllData": {
 
-    },
   },
 
   "securityDefinitions": {
@@ -1192,7 +1280,67 @@ const jsonGenerated = {
 
 
 
-    "searchResponse200": {
+    "allTvResponse200": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "example": "ok"
+        },
+        "message": {
+          "type": "string",
+          "example": "عملیات موفق"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "BANNER": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allBannerItem"
+              }
+            },
+            "TV_GLOBAL": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allTvItems"
+              }
+            },
+            "TV_INTERNATIONAL": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allTvItems"
+              }
+            },
+            "TV_EXCLUSIVE": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allTvItems"
+              }
+            },
+            "TV_RADIO": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allTvItems"
+              }
+            },
+            "TV_SATELLITE": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allTvItems"
+              }
+            },
+            "TV_PROVINCIAL": {
+              "type": "array",
+              "items": {
+                "$ref": "#/models/allTvItems"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tvResponse200": {
       "type": "object",
       "properties": {
         "state": {
@@ -1213,14 +1361,14 @@ const jsonGenerated = {
             "records": {
               "type": "array",
               "items": {
-                "$ref": "#/models/bannerItem"
+                "$ref": "#/models/tvItem"
               }
             }
           }
         }
       }
     },
-    "searchResponse400": {
+    "tvResponse400": {
       "type": "object",
       "properties": {
         "state": {
@@ -1233,7 +1381,7 @@ const jsonGenerated = {
         }
       }
     },
-    "searchResponse401": {
+    "tvResponse401": {
       "type": "object",
       "properties": {
         "state": {
@@ -1246,7 +1394,7 @@ const jsonGenerated = {
         }
       }
     },
-    "searchResponse500": {
+    "tvResponse500": {
       "type": "object",
       "properties": {
         "state": {
@@ -1256,26 +1404,6 @@ const jsonGenerated = {
         "message": {
           "type": "string",
           "example": "خطا در انجام عملیات"
-        }
-      }
-    },
-    "searchBody": {
-      "type": "object",
-      "required": [
-        "phone"
-      ],
-      "properties": {
-        "search": {
-          "type": "string",
-          "example": "رادیو"
-        },
-        "page_number": {
-          "type": "string",
-          "example": "1"
-        },
-        "page_size ": {
-          "type": "string",
-          "example": "10"
         }
       }
     },
@@ -1303,8 +1431,78 @@ const jsonGenerated = {
           "example": "https://cdn-bsht1c87.telewebion.com/tv3/live/720p/index.m3u8"
         },
         "isIran": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "allTvItems": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 3
+        },
+        "name": {
           "type": "string",
-          "example": "1"
+          "example": "شبکه 3"
+        },
+        "description": {
+          "type": "string",
+          "example": "شبکهٔ سه، یکی از شبکه‌های تلویزیونی دولتی کشور ایران است که در مجموعهٔ صدا و سیمای ایران مدیریت می‌شود. پخش برنامه‌های شبکه با فرمت HD 1080p و کدک HEVC نیز از گیرنده‌های زمینی و ماهواره‌ای از ۹ آذر ۱۳۹۹ آغاز شد. قبل از این پخش شبکه با فرمت HD 1080i و کدک H264 از ۱۷ مرداد ۱۳۹۵ آغاز شده‌ بود."
+        },
+        "image": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/images/png/ic_tv3.png"
+        },
+        "link": {
+          "type": "string",
+          "example": "https://cdn-bsht1c87.telewebion.com/tv3/live/720p/index.m3u8"
+        },
+        "state": {
+          "type": "string",
+          "example": "TV_GLOBAL"
+        },
+        "rating": {
+          "type": "string",
+          "example": "2.5"
+        },
+        "isIran": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "allBannerItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "videoId": {
+          "type": "number",
+          "example": 35
+        },
+        "videoImage": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/images/png/ic_tv3.png"
+        },
+        "title": {
+          "type": "string",
+          "example": "شبکه 3"
+        },
+        "videoUrl": {
+          "type": "string",
+          "example": "https://cdn-bsht1c87.telewebion.com/tv3/live/720p/index.m3u8"
+        },
+        "imageUrl": {
+          "type": "string",
+          "example": "https://arashaltafi.ir/tvonline/banner/tv3.jpg"
+        },
+        "isVisible": {
+          "type": "number",
+          "example": 1
         }
       }
     },
