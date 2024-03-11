@@ -6,6 +6,7 @@ const swaggerDocument = require('./swagger.json');
 const server = http.createServer(app);
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const localJsonGenerated = require('./swagger2.json');
 
 // handle middlewares
 app.use(cors());
@@ -1529,7 +1530,7 @@ const jsonGenerated = {
 
 app.use('/', swaggerUi.serve, swaggerUi.setup(null, options));
 
-app.use('/local', swaggerUi.serve, swaggerUi.setup(jsonGenerated, optionsLocal));
+app.use('/local', swaggerUi.serve, swaggerUi.setup(localJsonGenerated, optionsLocal));
 
 app.use('/swagger', (req, res) => {
   try {
