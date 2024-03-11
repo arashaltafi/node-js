@@ -530,13 +530,15 @@ const jsonGenerated = {
             "in": "query",
             "description": "page number",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "default": "1"
           }, {
             "name": "page_size",
             "in": "query",
             "description": "page size",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "default": "10"
           }
         ],
         "responses": {
@@ -615,21 +617,32 @@ const jsonGenerated = {
           {
             "name": "state",
             "in": "query",
-            "description": "state of tvs like => TV_GLOBAL, TV_SATELLITE, ...",
+            "description": "state of tvs",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "TV_GLOBAL",
+              "TV_INTERNATIONAL",
+              "TV_EXCLUSIVE",
+              "TV_RADIO",
+              "TV_SATELLITE",
+              "TV_PROVINCIAL"
+            ],
+            "default": "TV_GLOBAL"
           }, {
             "name": "page_number",
             "in": "query",
             "description": "page number",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "default": "1"
           }, {
             "name": "page_size",
             "in": "query",
             "description": "page size",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "default": "10"
           }
         ],
         "responses": {
