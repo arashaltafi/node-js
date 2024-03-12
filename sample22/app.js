@@ -30,6 +30,7 @@ const optionsLocal = {
 };
 
 const jsonGenerated = {
+  "swagger": "2.0",
   "host": "tv-back.liara.run/",
   "basePath": "api/v1",
   "tags": [
