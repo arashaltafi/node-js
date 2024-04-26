@@ -24,6 +24,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.556.0",
     "@aws-sdk/s3-request-presigner": "^3.556.0",
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "clientjs": "^0.2.1",
     "cookie-parser": "^1.4.6",
@@ -50,7 +51,8 @@
     "npmsample-arash": "^1.0.1",
     "socket.io": "^4.7.2",
     "swagger-ui-express": "^5.0.0",
-    "ws": "^8.14.2"
+    "ws": "^8.14.2",
+    "zarinpal-pay": "^1.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
