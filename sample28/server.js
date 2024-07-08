@@ -20,7 +20,10 @@ app.get('/captcha1', (req, res) => {
     };
     const captcha = svgCaptcha.create(options);
     const base64data = Buffer.from(captcha.data).toString('base64');
-    res.status(200).json({ data: base64data });
+    res.status(200).json({
+        code: captcha.text,
+        data: base64data
+    });
 });
 
 app.get('/captcha2', (req, res) => {
@@ -38,7 +41,10 @@ app.get('/captcha2', (req, res) => {
     };
     const captcha = svgCaptcha.create(options);
     const base64data = Buffer.from(captcha.data).toString('base64');
-    res.status(200).json({ data: base64data });
+    res.status(200).json({
+        code: captcha.text,
+        data: base64data
+    });
 });
 
 app.listen(port, () => {
