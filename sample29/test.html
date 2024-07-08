@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SSE Client</title>
+</head>
+<body>
+  <h1>SSE Client</h1>
+  <div id="events"></div>
+
+  <script>
+    const eventSource = new EventSource('http://localhost:5000/events');
+
+    eventSource.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      const eventElement = document.createElement('div');
+      eventElement.textContent = `Message: ${data.message}, Timestamp: ${data.timestamp}`;
+      document.getElementById('events').appendChild(eventElement);
+    };
+
+    eventSource.onerror = function(event) {
+      console.error('SSE Error:', event);
+    };
+  </script>
+</body>
+</html>
