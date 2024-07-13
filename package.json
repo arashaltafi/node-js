@@ -39,6 +39,7 @@
     "express-generator": "^4.16.1",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.17.3",
+    "fastify": "^4.28.1",
     "helmet": "^7.1.0",
     "http-server": "^14.1.1",
     "moment": "^2.29.4",
