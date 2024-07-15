@@ -14,7 +14,7 @@ const axios = require('axios');
 app.use(bodyParser.json({ limit: '50mb' }));
 
 app.post('/generate-pdf', async (req, res) => {
-    const { text, imageUrl, imageBase64 } = req.body;
+    const { text, imageUrl, imageBase64, type } = req.body;
 
     if (!text) {
         return res.status(400).json({ error: 'Text is required' });
@@ -29,13 +29,20 @@ app.post('/generate-pdf', async (req, res) => {
         doc.on('data', buffers.push.bind(buffers));
         doc.on('end', () => {
             const pdfData = Buffer.concat(buffers);
-            res
+            const base64Pdf = pdfData.toString('base64');
+            if (type === 'base64') {
+                res.status(200).send({
+                    base64Pdf: base64Pdf
+                })
+            } else {
+                res
                 .writeHead(200, {
                     'Content-Length': Buffer.byteLength(pdfData),
                     'Content-Type': 'application/pdf',
                     'Content-Disposition': 'attachment;filename=generated.pdf',
                 })
                 .end(pdfData);
+            }
         });
 
         // Add text with styles
