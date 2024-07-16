@@ -1,8 +1,8 @@
 const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = require('graphql');
-const usersData = require('./usersData');
+const { studentData, teacherData } = require('./data');
 
-const userType = new GraphQLObjectType({
-    name: 'User',
+const studentType = new GraphQLObjectType({
+    name: 'Student',
     fields: {
         id: {
             type: GraphQLInt
@@ -19,13 +19,37 @@ const userType = new GraphQLObjectType({
     },
 })
 
+const teacherType = new GraphQLObjectType({
+    name: 'Teacher',
+    fields: {
+        id: {
+            type: GraphQLInt
+        },
+        name: {
+            type: GraphQLString
+        },
+        family: {
+            type: GraphQLString
+        },
+        class: {
+            type: GraphQLString
+        }
+    }
+})
+
 const rootQuery = new GraphQLObjectType({
     name: 'Root',
     fields: {
-        users: {
-            type: new GraphQLList(userType),
+        students: {
+            type: new GraphQLList(studentType),
             resolve: () => {
-                return usersData
+                return studentData
+            }
+        },
+        teachers: {
+            type: new GraphQLList(teacherType),
+            resolve: () => {
+                return teacherData
             }
         }
     }
