@@ -36,7 +36,24 @@ const teacherData = [
     }
 ]
 
+const courseData = [
+    {
+        id: 1,
+        name: 'courseName1',
+        price: 85,
+    }, {
+        id: 2,
+        name: 'courseName2',
+        price: 5600,
+    }, {
+        id: 3,
+        name: 'courseName3',
+        price: 18020,
+    }
+]
+
 module.exports = {
     studentData,
-    teacherData
+    teacherData,
+    courseData
 }

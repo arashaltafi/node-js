@@ -1,5 +1,20 @@
 const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = require('graphql');
-const { studentData, teacherData } = require('./data');
+const { studentData, teacherData, courseData } = require('./data');
+
+const courseType = new GraphQLObjectType({
+    name: 'Course',
+    fields: {
+        id: {
+            type: GraphQLInt
+        },
+        name: {
+            type: GraphQLString
+        },
+        price: {
+            type: GraphQLInt
+        }
+    }
+})
 
 const teacherType = new GraphQLObjectType({
     name: 'Teacher',
@@ -15,6 +30,12 @@ const teacherType = new GraphQLObjectType({
         },
         class: {
             type: GraphQLString
+        },
+        courses: {
+            type: new GraphQLList(courseType),
+            resolve: () => {
+                return courseData
+            }
         }
     }
 })
@@ -38,7 +59,7 @@ const studentType = new GraphQLObjectType({
             type: teacherType,
             resolve: (obj) => {
                 console.log('obj:', obj)
-                return teacherData.find(item => item.id === obj.id)
+                return teacherData.find(teacher => teacher.id === obj.id)
             }
         }
     },
@@ -82,6 +103,25 @@ const rootQuery = new GraphQLObjectType({
                 console.log('obj:', obj)
                 console.log('args:', args)
                 return teacherData.find(teacher => teacher.id === args.id);
+            }
+        },
+        courses: {
+            type: new GraphQLList(courseType),
+            resolve: () => {
+                return courseData
+            }
+        },
+        course: {
+            type: courseType,
+            args: {
+                id: {
+                    type: GraphQLInt
+                }
+            },
+            resolve: (obj, args) => {
+                console.log('obj:', obj)
+                console.log('args:', args)
+                return courseData.find(course => course.id === args.id)
             }
         },
     }
