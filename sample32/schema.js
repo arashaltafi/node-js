@@ -46,12 +46,38 @@ const rootQuery = new GraphQLObjectType({
                 return studentData
             }
         },
+        student: {
+            type: studentType,
+            args: {
+                id: {
+                    type: GraphQLInt
+                }
+            },
+            resolve: (obj, args) => {
+                console.log('obj:', obj)
+                console.log('args:', args)
+                return studentData.find(student => student.id === args.id);
+            }
+        },
         teachers: {
             type: new GraphQLList(teacherType),
             resolve: () => {
                 return teacherData
             }
-        }
+        },
+        teacher: {
+            type: teacherType,
+            args: {
+                id: {
+                    type: GraphQLInt
+                }
+            },
+            resolve: (obj, args) => {
+                console.log('obj:', obj)
+                console.log('args:', args)
+                return teacherData.find(teacher => teacher.id === args.id);
+            }
+        },
     }
 })
 
