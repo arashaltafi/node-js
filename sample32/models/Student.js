@@ -2,16 +2,20 @@ const mongoose = require('mongoose');
 
 const studentSchema = new mongoose.Schema({
     id: {
-        type: Number
+        type: Number,
+        require: true
     },
     name: {
-        type: String
+        type: String,
+        require: true
     },
     family: {
-        type: String
+        type: String,
+        require: true
     },
     age: {
-        type: Number
+        type: Number,
+        require: true
     },
     teacher: {
         type: mongoose.Types.ObjectId,

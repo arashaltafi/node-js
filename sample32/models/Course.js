@@ -2,13 +2,16 @@ const mongoose = require('mongoose');
 
 const courseSchema = new mongoose.Schema({
     id: {
-        type: Number
+        type: Number,
+        require: true
     },
     name: {
-        type: String
+        type: String,
+        require: true
     },
     price: {
-        type: Number
+        type: Number,
+        require: true
     }
 })
 
