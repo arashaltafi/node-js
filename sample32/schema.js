@@ -74,7 +74,9 @@ const rootQuery = new GraphQLObjectType({
     fields: {
         students: {
             type: new GraphQLList(studentType),
-            resolve: async () => {
+            resolve: async (obj, args, context) => {
+                console.log('token:', context.token)
+                console.log('theme:', context.theme)
                 return await studentModel.find({})
             }
         },

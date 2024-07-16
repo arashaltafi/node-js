@@ -22,7 +22,13 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/graphql', createHandler({ schema }))
+app.use('/graphql', createHandler({ schema, context: (req) => {
+    // return req
+    return {
+        token: req.headers.token,
+        theme: req.headers.theme,
+    }
+} }))
 
 app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
