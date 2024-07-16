@@ -48,16 +48,20 @@ const studentType = new GraphQLObjectType({
     name: 'Student',
     fields: {
         id: {
-            type: GraphQLInt
+            type: GraphQLInt,
+            description: 'student id'
         },
         name: {
-            type: GraphQLString
+            type: GraphQLString,
+            description: 'student name'
         },
         family: {
-            type: GraphQLString
+            type: GraphQLString,
+            description: 'student family'
         },
         age: {
-            type: GraphQLInt
+            type: GraphQLInt,
+            description: 'student age'
         },
         teacher: {
             type: teacherType,
@@ -74,10 +78,20 @@ const rootQuery = new GraphQLObjectType({
     fields: {
         students: {
             type: new GraphQLList(studentType),
+            args: {
+                page: {
+                    type: GraphQLInt
+                },
+                page_size: {
+                    type: GraphQLInt
+                }
+            },
             resolve: async (obj, args, context) => {
                 console.log('token:', context.token)
                 console.log('theme:', context.theme)
-                return await studentModel.find({})
+                const page = args.page || 1
+                const pageSize = args.page_size || 10
+                return await studentModel.find({}).skip((page - 1) * pageSize).limit(pageSize)
             }
         },
         student: {
