@@ -1,4 +1,4 @@
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLID } = require('graphql');
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLID, GraphQLNonNull } = require('graphql');
 
 const courseModel = require('./models/Course')
 const teacherModel = require('./models/Teacher')
@@ -133,13 +133,13 @@ const rootMutation = new GraphQLObjectType({
             type: teacherType,
             args: {
                 id: {
-                    type: GraphQLInt
+                    type: new GraphQLNonNull(GraphQLInt)
                 },
                 name: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 family: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 class: {
                     type: GraphQLString
@@ -159,16 +159,16 @@ const rootMutation = new GraphQLObjectType({
             type: studentType,
             args: {
                 id: {
-                    type: GraphQLInt
+                    type: new GraphQLNonNull(GraphQLInt)
                 },
                 name: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 family: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 age: {
-                    type: GraphQLInt
+                    type: new GraphQLNonNull(GraphQLInt)
                 },
                 teacher: {
                     type: GraphQLID
@@ -189,13 +189,13 @@ const rootMutation = new GraphQLObjectType({
             type: courseType,
             args: {
                 id: {
-                    type: GraphQLInt
+                    type: new GraphQLNonNull(GraphQLInt)
                 },
                 name: {
-                    type: GraphQLString
+                    type: new GraphQLNonNull(GraphQLString)
                 },
                 price: {
-                    type: GraphQLInt
+                    type: new GraphQLNonNull(GraphQLInt)
                 }
             },
             resolve: async (obj, args) => {
