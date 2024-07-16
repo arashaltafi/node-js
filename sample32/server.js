@@ -4,8 +4,16 @@
 const express = require('express');
 const { createHandler } = require('graphql-http/lib/use/express');
 const { schema } = require('./schema');
+const connectToMongo = require('./config/mongo')
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(cors());
+app.use(bodyParser.json({ limit: '50mb' }));
+
+await connectToMongo();
+
 const PORT = 5000;
 
 app.get('/', (req, res) => {
