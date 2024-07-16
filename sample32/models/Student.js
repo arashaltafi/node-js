@@ -19,7 +19,7 @@ const studentSchema = new mongoose.Schema({
     },
     teacher: {
         type: mongoose.Types.ObjectId,
-        ref: "Teacher"
+        ref: "Teacher1"
     },
 })
 

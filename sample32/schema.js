@@ -1,5 +1,4 @@
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList } = require('graphql');
-const { studentData, teacherData, courseData } = require('./data');
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt, GraphQLList, GraphQLID } = require('graphql');
 
 const courseModel = require('./models/Course')
 const teacherModel = require('./models/Teacher')
@@ -37,8 +36,9 @@ const teacherType = new GraphQLObjectType({
         },
         courses: {
             type: new GraphQLList(courseType),
-            resolve: () => {
-                return courseData
+            resolve: async () => {
+                const courses = await courseModel.find({})
+                return courses
             }
         }
     }
@@ -61,9 +61,9 @@ const studentType = new GraphQLObjectType({
         },
         teacher: {
             type: teacherType,
-            resolve: (obj) => {
-                console.log('obj:', obj)
-                return teacherData.find(teacher => teacher.id === obj.id)
+            resolve: async (obj) => {
+                const teacher = await teacherModel.findOne({ _id: obj.teacher })
+                return teacher
             }
         }
     },
@@ -85,9 +85,8 @@ const rootQuery = new GraphQLObjectType({
                     type: GraphQLInt
                 }
             },
-            resolve: (obj, args) => {
-                console.log('args:', args)
-                return studentData.find(student => student.id === args.id);
+            resolve: async (obj, args) => {
+                return await studentModel.findOne({ _id: args.id });
             }
         },
         teachers: {
@@ -100,13 +99,11 @@ const rootQuery = new GraphQLObjectType({
             type: teacherType,
             args: {
                 id: {
-                    type: GraphQLInt
+                    type: GraphQLID
                 }
             },
-            resolve: (obj, args) => {
-                console.log('obj:', obj)
-                console.log('args:', args)
-                return teacherData.find(teacher => teacher.id === args.id);
+            resolve: async (obj, args) => {
+                return await teacherModel.findOne({ _id: args.id });
             }
         },
         courses: {
@@ -122,10 +119,8 @@ const rootQuery = new GraphQLObjectType({
                     type: GraphQLInt
                 }
             },
-            resolve: (obj, args) => {
-                console.log('obj:', obj)
-                console.log('args:', args)
-                return courseData.find(course => course.id === args.id)
+            resolve: async (obj, args) => {
+                return await courseModel.findOne({ _id: args.id });
             }
         },
     }
@@ -174,6 +169,9 @@ const rootMutation = new GraphQLObjectType({
                 },
                 age: {
                     type: GraphQLInt
+                },
+                teacher: {
+                    type: GraphQLID
                 }
             },
             resolve: async (obj, args) => {
@@ -181,7 +179,8 @@ const rootMutation = new GraphQLObjectType({
                     id: args.id,
                     name: args.name,
                     family: args.family,
-                    age: args.age
+                    age: args.age,
+                    teacher: args.teacher
                 }
                 return await studentModel.create(newStudent)
             }
