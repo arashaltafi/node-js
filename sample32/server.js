@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 app.use('/graphql-sdl', createHandler({
     schema: schemaSDL,
     rootValue: {
-        users: async (args) => {
+        users: async () => {
             return [
                 {
                     _id: '1',
@@ -45,6 +45,14 @@ app.use('/graphql-sdl', createHandler({
                     age: 3
                 }
             ]
+        },
+        user: async (args) => {
+            return {
+                _id: args.id,
+                name: 'name1',
+                family: 'family1',
+                age: 1  
+            }
         }
     },
     context: (req) => {
