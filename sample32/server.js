@@ -4,6 +4,7 @@
 const express = require('express');
 const { createHandler } = require('graphql-http/lib/use/express');
 const { schema } = require('./schema');
+const { schemaSDL } = require('./schema-sdl');
 const connectToMongo = require('./config/mongo')
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -22,13 +23,48 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use('/graphql', createHandler({ schema, context: (req) => {
-    // return req
-    return {
-        token: req.headers.token,
-        theme: req.headers.theme,
+app.use('/graphql-sdl', createHandler({
+    schema: schemaSDL,
+    rootValue: {
+        users: async (args) => {
+            return [
+                {
+                    _id: '1',
+                    name: 'name1',
+                    family: 'family1',
+                    age: 1
+                }, {
+                    _id: '2',
+                    name: 'name2',
+                    family: 'family2',
+                    age: 2
+                }, {
+                    _id: '3',
+                    name: 'name3',
+                    family: 'family3',
+                    age: 3
+                }
+            ]
+        }
+    },
+    context: (req) => {
+        // return req
+        return {
+            token: req.headers.token,
+            theme: req.headers.theme,
+        }
     }
-} }))
+}))
+
+app.use('/graphql', createHandler({
+    schema, context: (req) => {
+        // return req
+        return {
+            token: req.headers.token,
+            theme: req.headers.theme,
+        }
+    }
+}))
 
 app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
