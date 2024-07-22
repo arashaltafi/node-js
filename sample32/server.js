@@ -53,6 +53,14 @@ app.use('/graphql-sdl', createHandler({
                 family: 'family1',
                 age: 1  
             }
+        },
+        createUser: async (args) => {
+            return {
+                _id: 1,
+                name: args.name,
+                family: args.family,
+                age: args.age
+            }
         }
     },
     context: (req) => {
