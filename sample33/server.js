@@ -7,21 +7,80 @@ const { ApolloServer, gql } = require('apollo-server-express');
 
 // Define your schema
 const typeDefs = gql`
+    type User {
+        _id: ID
+        name: String!
+        family: String
+        age: Int
+    }
+
+    type AAA {
+        name: String
+    }
+
     type Query {
-        hello: String
+        arash: AAA
+        users: [User]
+        user(id: Int!): User
     }
 `;
 
 // Define your resolvers
 const resolvers = {
     Query: {
-        hello: () => 'Hello world!',
+        arash: async () => {
+            return {
+                name: 'arash123'
+            }
+        },
+        users: async () => {
+            return [
+                {
+                    _id: '1',
+                    name: 'name1',
+                    family: 'family1',
+                    age: 1
+                }, {
+                    _id: '2',
+                    name: 'name2',
+                    family: 'family2',
+                    age: 2
+                }, {
+                    _id: '3',
+                    name: 'name3',
+                    family: 'family3',
+                    age: 3
+                }
+            ]
+        },
+        user: async (obj, args, context) => {
+            console.log('obj:', obj)
+            console.log('args:', args)
+            console.log('token:', context.token)
+            console.log('theme:', context.theme)
+            console.log('-------------------')
+            return {
+                _id: args.id,
+                name: 'name1',
+                family: 'family1',
+                age: 1
+            }
+        },
     },
 };
 
 // Create an instance of ApolloServer
-const server = new ApolloServer({ typeDefs, resolvers });
-
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => {
+        // return req
+        return {
+            token: req.headers.token,
+            theme: req.headers.theme,
+        };
+    }
+});
 // Initialize an Express application
 const app = express();
 
