@@ -10,6 +10,7 @@ const schemaSDL = buildSchema(`
     
     type RootQuery {
         users: [User]!
+        user(id: Int!): User
     }
 
     type RootMutation {
