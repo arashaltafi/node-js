@@ -24,6 +24,10 @@ const typeDefs = gql`
         users: [User]
         user(id: Int!): User
     }
+
+    type Mutation {
+        createUser(name: String!, family: String, age: Int): User
+    }
 `;
 
 // Define your resolvers
@@ -68,6 +72,16 @@ const resolvers = {
             }
         },
     },
+    Mutation: {
+        createUser: async (obj, args, context) => {
+            return {
+                _id: 1,
+                name: args.name,
+                family: args.family,
+                age: args.age
+            }
+        }
+    }
 };
 
 // Create an instance of ApolloServer
