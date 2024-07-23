@@ -4,6 +4,7 @@
 
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+const PORT = process.env.PORT || 4000;
 
 // Define your schema
 const typeDefs = gql`
@@ -84,12 +85,34 @@ const server = new ApolloServer({
 // Initialize an Express application
 const app = express();
 
+app.get('/document', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.send(
+        `<html>
+         <head>
+           <title>GraphiQL</title>
+           <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.css" />
+           <script src="https://unpkg.com/react/umd/react.development.js" crossorigin></script>
+           <script src="https://unpkg.com/react-dom/umd/react-dom.development.js" crossorigin></script>
+           <script src="https://unpkg.com/graphiql/graphiql.min.js"></script>
+         </head>
+         <body>
+           <div id="graphiql" style="height: 100vh;"></div>
+           <script>
+             const fetcher = GraphiQL.createFetcher({ url: http://localhost/:${PORT}/graphql });
+             ReactDOM.render(
+               React.createElement(GraphiQL, { fetcher }),
+               document.getElementById('graphiql')
+             );
+           </script>
+         </body>
+       </html>`
+    );
+})
+
 // Apply the Apollo GraphQL middleware and set the path to /graphql
 server.start().then(() => {
     server.applyMiddleware({ app, path: '/graphql' });
-
-    // Define the port
-    const PORT = process.env.PORT || 4000;
 
     // Start the server
     app.listen(PORT, () => {
