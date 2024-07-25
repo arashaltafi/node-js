@@ -63,6 +63,7 @@
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.0",
     "ws": "^8.14.2",
+    "xlsx": "^0.18.5",
     "zarinpal-pay": "^1.0.3"
   },
   "devDependencies": {
